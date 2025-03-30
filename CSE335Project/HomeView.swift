@@ -22,6 +22,17 @@ struct HomeView: View {
                 .font(.headline)
                 .padding()
             
+            NavigationLink(destination: BrowseView()) {
+                   Text("Browse by Map")
+                       .frame(maxWidth: .infinity)
+                       .padding()
+                       .background(Color.blue)
+                       .foregroundColor(.white)
+                       .cornerRadius(10)
+                       .padding(.horizontal)
+               }
+            
+            
             NavigationLink(destination: SearchFilter()) {
                     Text("Search")
                         .frame(maxWidth: .infinity)
@@ -43,19 +54,9 @@ struct HomeView: View {
                        .padding(.horizontal)
                }
             
-            NavigationLink(destination: BrowseView()) {
-                   Text("Search History")
-                       .frame(maxWidth: .infinity)
-                       .padding()
-                       .background(Color.blue)
-                       .foregroundColor(.white)
-                       .cornerRadius(10)
-                       .padding(.horizontal)
-               }
             
           
         }
-        .padding()
     }
 }
 

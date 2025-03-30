@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct PropertyView: View {
-    var property: PropertyModel
+    var property: Property
 
     var body: some View {
         VStack(spacing: 10) {
@@ -17,17 +17,15 @@ struct PropertyView: View {
                 .font(.title2)
                 .bold()
 
-            Text(property.price)
-                .font(.headline)
-                .foregroundColor(.green)
+            Text("Price: $\(String(format: "%.2f", property.price))")
 
             Map(coordinateRegion: .constant(
                 MKCoordinateRegion(
-                    center: property.location,
+                    center: property.coordinate,
                     span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 )
             ), annotationItems: [property]) { item in
-                MapMarker(coordinate: item.location, tint: .red)
+                MapMarker(coordinate: item.coordinate, tint: .red)
             }
             .frame(height: 200)
         }

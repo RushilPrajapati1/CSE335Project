@@ -12,10 +12,10 @@ import MapKit
 class MapModel: ObservableObject {
     @Published var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 33.4255, longitude: -111.9400), 
-           span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+           span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
     )
 
-    @Published var properties: [PropertyModel] = PropertyModel.sampleData
+    @Published var properties: [Property] = Property.sampleData
 
     @Published var selectedLocation: CLLocationCoordinate2D? = nil
 }

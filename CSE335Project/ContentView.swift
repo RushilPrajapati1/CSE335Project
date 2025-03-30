@@ -17,7 +17,6 @@ struct ContentView: View {
             .environmentObject(mapView)
             .environmentObject(searchView)
         }
-        .padding()
     }
 }
 

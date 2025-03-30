@@ -8,7 +8,21 @@
 import Foundation
 import SwiftUI
 struct SearchHistoryView: View {
+    let history: [String] = [
+            "Tempe - 2 Bedroom House -$2000",
+            "Scottsdale - Condo",
+            "Phoenix - 3 Bedroom House",
+            "Tempe - Studio under $1500",
+            "Mesa - Townhouse with Pool"
+        ]
     var body: some View {
-        Text("History")
+        VStack {
+            Text("Search History")
+                .font(.headline)
+            
+            List(history, id: \.self) { entry in
+                Text(entry)
+            }
+        }
     }
 }
