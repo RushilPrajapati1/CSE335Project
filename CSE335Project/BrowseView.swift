@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import MapKit
 //this is the model that is brows.view
-struct SearchView: View{
+struct BrowseView: View{
 
     @EnvironmentObject var mapView: MapModel
 
@@ -21,14 +21,14 @@ struct SearchView: View{
     var body: some View {
         VStack{
             Map(coordinateRegion: $region, annotationItems: mapView.properties) { property in
-                MapMarker(coordinate: property.coodinate, tint: .blue)
+                MapMarker(coordinate: property.location, tint: .blue)
                         }
             
             List(mapView.properties){
                 property in
                 VStack{
                     Text(property.title)
-                    Text("Price: $ \(property.price,specifier: "%.2f")")
+                    Text("Price: $\(String(format: "%.2f", property.price))")
                     Text("Location: \(property.location)")
                 }
             }

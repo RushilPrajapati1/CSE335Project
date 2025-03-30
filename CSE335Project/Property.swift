@@ -11,7 +11,7 @@ import MapKit
 
 struct Property: Identifiable{
     var id: UUID
-    var title: Double
+    var title: String
     var price: Double
     var location: String
     var coodinate: CLLocationCoordinate2D

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var mapView = MapModel()
+        @StateObject private var searchView = SearchModel()
     var body: some View {
+        
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world! Testing commit11")
+            HomeView()
+            .environmentObject(mapView)
+            .environmentObject(searchView)
         }
         .padding()
     }
@@ -21,4 +23,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(MapModel())
+        .environmentObject(SearchModel())
+    
 }

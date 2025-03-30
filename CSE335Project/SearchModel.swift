@@ -9,11 +9,10 @@ import Foundation
 import SwiftUI
 
 class SearchModel: ObservableObject{
-    @Published var searchHistory: [String] = []
-    
-    func saveSearchHistory(_ searchText: String){
-        if !searchHistory.contains(searchText){
-            searchHistory.insert(searchText, at: 0) 
-        }
-    }
+    @Published var searchQuery: String = ""
+       @Published var results: [PropertyModel] = []
+       
+       func performSearch() {
+           results = PropertyModel.sampleData.filter { $0.title.contains(searchQuery) }
+       }
 }
