@@ -28,6 +28,18 @@ struct PropertyView: View {
                 MapMarker(coordinate: item.coordinate, tint: .red)
             }
             .frame(height: 200)
+            NavigationLink(destination: InquiryView(property: property)) {
+                        Text("Send Inquiry")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.purple)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding(.top)
+
+                    Spacer()
         }
         .padding()
         .navigationTitle("Property Detail")
