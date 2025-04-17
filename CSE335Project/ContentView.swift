@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    //test this
     @StateObject private var mapView = MapModel()
         @StateObject private var searchView = SearchModel()
     var body: some View {
