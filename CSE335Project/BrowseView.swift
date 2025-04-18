@@ -25,20 +25,50 @@ struct BrowseView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Map(coordinateRegion: $mapView.region, annotationItems: mapView.properties, annotationContent: { item in
-                    MapAnnotation(coordinate: item.coordinate) {
-                        Button {
-                            selectedProperty = item
-                            navigate = true
-                        } label: {
-                            Image(systemName: "mappin.circle.fill")
+                Spacer().frame(height:10)
+                
+                Text("Current Listings Nearby")
                                 .font(.title)
-                                .foregroundColor(.blue)
+                                .bold()
+
+                ZStack(alignment: .bottomTrailing) {
+                    Map(coordinateRegion: $mapView.region, annotationItems: mapView.properties) { item in
+                        MapAnnotation(coordinate: item.coordinate) {
+                            Button {
+                                selectedProperty = item
+                                navigate = true
+                            } label: {
+                                Image(systemName: "mappin.circle.fill")
+                                    .font(.title)
+                                    .foregroundColor(.blue)
+                            }
                         }
                     }
-                })
 
-                .frame(height: 250)
+                    VStack() {
+                        Button(action: {
+                            mapView.zoomIn()
+                        }) {
+                            Image(systemName: "plus.magnifyingglass")
+                                .padding(10)
+                                .background(Color.white.opacity(0.8))
+                                .clipShape(Circle())
+                        }
+
+                        Button(action: {
+                            mapView.zoomOut()
+                        }) {
+                            Image(systemName: "minus.magnifyingglass")
+                                .padding(10)
+                                .background(Color.white.opacity(0.8))
+                                .clipShape(Circle())
+                        }
+                    }
+                    .padding()
+                }
+                .frame(height: 600)
+                .cornerRadius(12)
+                .padding()
 
                 NavigationLink(destination: PropertyListView(properties: mapView.properties)) {
                            Text("Show Current Properties")
@@ -56,10 +86,14 @@ struct BrowseView: View {
                     label: { EmptyView() }
                 )
             }
-            .navigationTitle("Current Listings Nearby")
         }
     }
 }
 
 
-//Hello
+struct BrowseView_Previews: PreviewProvider {
+    static var previews: some View {
+        BrowseView()
+            .environmentObject(MapModel())
+    }
+}

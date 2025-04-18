@@ -60,3 +60,9 @@ struct HomeView: View {
     }
 }
 
+#Preview {
+    HomeView()
+        .environmentObject(MapModel())
+        .environmentObject(SearchModel())
+    
+}

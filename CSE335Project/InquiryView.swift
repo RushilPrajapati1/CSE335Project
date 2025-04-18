@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreLocation
 
 struct InquiryView: View {
     var property: Property
@@ -56,3 +57,4 @@ struct InquiryView: View {
         .navigationTitle("Inquire Screen")
     }
 }
+

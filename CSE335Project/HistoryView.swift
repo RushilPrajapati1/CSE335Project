@@ -26,3 +26,10 @@ struct SearchHistoryView: View {
         }
     }
 }
+
+#Preview {
+    SearchHistoryView()
+        .environmentObject(MapModel())
+        .environmentObject(SearchModel())
+    
+}
