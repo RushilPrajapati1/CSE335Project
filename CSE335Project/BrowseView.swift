@@ -5,7 +5,6 @@
 //  Created by Rushil Prajapati on 3/27/25.
 //
 
-import Foundation
 import SwiftUI
 import MapKit
 
@@ -25,71 +24,69 @@ struct BrowseView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Spacer().frame(height:10)
-                
+                Spacer().frame(height: 10)
                 Text("Current Listings Nearby")
-                                .font(.title)
-                                .bold()
+                    .font(.title)
+                    .bold()
 
                 ZStack(alignment: .bottomTrailing) {
-                    Map(coordinateRegion: $mapView.region, annotationItems: mapView.properties) { item in
-                        MapAnnotation(coordinate: item.coordinate) {
-                            Button {
-                                selectedProperty = item
-                                navigate = true
-                            } label: {
-                                Image(systemName: "mappin.circle.fill")
-                                    .font(.title)
-                                    .foregroundColor(.blue)
+                    Map(
+                        initialPosition: .region(mapView.region),
+                        interactionModes: [.all],
+                        content: {
+                            ForEach(mapView.properties) { property in
+                                Annotation("\(property.title)", coordinate: property.coordinate) {
+                                    Button {
+                                        selectedProperty = property
+                                        navigate = true
+                                    } label: {
+                                        Image(systemName: "mappin.circle.fill")
+                                            .font(.title)
+                                            .foregroundColor(.blue)
+                                    }
+                                }
                             }
                         }
-                    }
+                    )
+                    .mapControls { MapUserLocationButton() }
+                    .frame(height: 600)
+                    .cornerRadius(12)
 
-                    VStack() {
-                        Button(action: {
-                            mapView.zoomIn()
-                        }) {
+                    VStack(spacing: 8) {
+                        Button(action: { mapView.zoomIn() }) {
                             Image(systemName: "plus.magnifyingglass")
                                 .padding(10)
                                 .background(Color.white.opacity(0.8))
                                 .clipShape(Circle())
                         }
-
-                        Button(action: {
-                            mapView.zoomOut()
-                        }) {
+                        Button(action: { mapView.zoomOut() }) {
                             Image(systemName: "minus.magnifyingglass")
                                 .padding(10)
                                 .background(Color.white.opacity(0.8))
                                 .clipShape(Circle())
                         }
-                    }
-                    .padding()
+                    }.padding()
                 }
-                .frame(height: 600)
-                .cornerRadius(12)
-                .padding()
+                .padding(.horizontal)
 
-                NavigationLink(destination: PropertyListView(properties: mapView.properties)) {
-                           Text("Show Current Properties")
-                               .padding()
-                               .frame(maxWidth: .infinity)
-                               .background(Color.purple)
-                               .foregroundColor(.white)
-                               .cornerRadius(10)
-                               .padding(.horizontal)
-                       }
+                NavigationLink(destination:
+                    PropertyListView(properties: mapView.properties)) {
+                    Text("Show Current Properties")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.purple)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                }
 
-                NavigationLink(
-                    destination: destinationView,
-                    isActive: $navigate,
-                    label: { EmptyView() }
-                )
+                NavigationLink(destination: destinationView, isActive: $navigate) {
+                    EmptyView()
+                }
             }
         }
     }
 }
-
 
 struct BrowseView_Previews: PreviewProvider {
     static var previews: some View {

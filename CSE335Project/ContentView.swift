@@ -8,22 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    //test this
     @StateObject private var mapView = MapModel()
-        @StateObject private var searchView = SearchModel()
+    @StateObject private var searchView = SearchModel()
+
     var body: some View {
-        
-        VStack {
-            HomeView()
+        LoginView()
             .environmentObject(mapView)
             .environmentObject(searchView)
-        }
     }
 }
 
 #Preview {
     ContentView()
-        .environmentObject(MapModel())
-        .environmentObject(SearchModel())
-    
 }
+

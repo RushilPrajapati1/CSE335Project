@@ -11,6 +11,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var mapView: MapModel
     @EnvironmentObject var searchView: SearchModel
+    @Binding var isLoggedIn: Bool
     
     var body: some View {
         @EnvironmentObject var mapView: MapModel
@@ -61,8 +62,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(isLoggedIn: .constant(true))
         .environmentObject(MapModel())
         .environmentObject(SearchModel())
-    
 }

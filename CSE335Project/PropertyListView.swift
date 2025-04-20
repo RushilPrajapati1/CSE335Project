@@ -28,7 +28,7 @@ struct PropertyListView: View {
                             Text("Inquire")
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
-                                .background(Color.red)
+                                .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(6)
                         }
@@ -43,7 +43,7 @@ struct PropertyListView: View {
                 Text("Add more properties")
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.purple)
+                    .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }

@@ -16,11 +16,11 @@ class MapModel: ObservableObject {
 
     @Published var properties: [Property] = []
     
-    private let apiKey = "AIzaSyBS4mMa3Yh4cFweYHMkm84q08nRCE587F4" // <== paste your key here
+    private let apiKey = "AIzaSyBS4mMa3Yh4cFweYHMkm84q08nRCE587F4"
 
 
     init() {
-       // loadSampleProperties()
+
         loadProperties()
     }
 
@@ -43,7 +43,7 @@ class MapModel: ObservableObject {
                                 self.properties = decoded.results.map {
                                     Property(
                                         title: $0.name,
-                                        price: Double.random(in: 1000...3000), // fake price
+                                        price: Double.random(in: 1000...3000),
                                         location: $0.vicinity,
                                         coordinate: CLLocationCoordinate2D(
                                             latitude: $0.geometry.location.lat,

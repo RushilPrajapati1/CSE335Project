@@ -43,7 +43,6 @@ struct InquiryView: View {
             Spacer()
 
             Button(action: {
-                // Handle sending inquiry
             }) {
                 Text("Send Inquiry")
                     .frame(maxWidth: .infinity)
