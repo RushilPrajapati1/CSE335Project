@@ -61,7 +61,7 @@ struct BrowseView: View {
                 .padding()
 
                 NavigationLink(destination:
-                    PropertyListView(properties: mapView.properties)) {
+                    PropertyListView(properties: $mapView.properties)) {
                     Text("Show Current Properties")
                         .padding()
                         .frame(maxWidth: .infinity)

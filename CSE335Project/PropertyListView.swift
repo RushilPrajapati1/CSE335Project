@@ -8,52 +8,60 @@
 import Foundation
 import SwiftUI
 
-//import SwiftUI
-
 struct PropertyListView: View {
-    var properties: [Property]
+    @Binding var properties: [Property]
+    @State private var showingAddProperty = false
 
     var body: some View {
-        VStack {
-            List(properties) { property in
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(property.title)
-                        .font(.headline)
-                    Text("Price: $\(String(format: "%.2f", property.price))")
-                    Text("Location: \(property.location)")
-
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: PropertyView(property: property)) {
+        List {
+            ForEach(properties) { property in
+                NavigationLink(destination: PropertyView(property: property)) {
+                    VStack(alignment: .leading) {
+                        Text(property.title)
+                            .font(.headline)
+                        Text("Price: $\(String(format: "%.2f", property.price))")
+                        Text("Location: \(property.location)")
+                        NavigationLink(destination: InquiryView(property: property)) {
                             Text("Inquire")
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
+                                .font(.caption)
+                                .padding(6)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(6)
                         }
+                        .padding(.top, 4)
                     }
+                    .padding(.vertical, 8)
                 }
-                .padding(.vertical, 4)
             }
-
-            Button(action: {
-            }) {
-                Text("Add more properties")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding()
         }
         .navigationTitle("Properties Nearby")
+        .overlay(
+            VStack {
+                Spacer()
+                Button(action: {
+                    showingAddProperty = true
+                }) {
+                    Text("Add more properties")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                }
+            }
+            .padding(.bottom),
+            alignment: .bottom
+        )
+        .sheet(isPresented: $showingAddProperty) {
+            AddPropertyView(properties: $properties)
+        }
     }
 }
 
 #Preview {
     NavigationStack {
-        PropertyListView(properties: Property.sampleData)
+        PropertyListView(properties: .constant(Property.sampleData))
     }
 }
