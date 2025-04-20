@@ -48,7 +48,7 @@ struct AddPropertyView: View {
                 Text("Add Property")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.black)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
@@ -67,12 +67,10 @@ struct AddPropertyView: View {
             title: title,
             price: priceValue,
             location: location,
-            coordinate: CLLocationCoordinate2D(latitude: 33.4242, longitude: -111.9281) // Dummy for now
+            coordinate: CLLocationCoordinate2D(latitude: 33.4242, longitude: -111.9281)
         )
 
         properties.append(newProperty)
-       // searchView.addToHistory(newProperty)
-
         dismiss()
     }
 }

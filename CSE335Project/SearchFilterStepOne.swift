@@ -34,7 +34,7 @@ struct SearchFilterStepOne: View {
                 Text("Next")
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color.black)
                     .foregroundColor(.white)
                     .cornerRadius(12)
             }

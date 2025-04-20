@@ -5,58 +5,53 @@
 //  Created by Rushil Prajapati on 3/26/25.
 //
 
-import Foundation
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var mapView: MapModel
-    @EnvironmentObject var searchView: SearchModel
     @Binding var isLoggedIn: Bool
-    
+
     var body: some View {
-        @EnvironmentObject var mapView: MapModel
-        @EnvironmentObject var searchView: SearchModel
-        
-        
-        NavigationStack{
-            Text("This is the Home View")
-                .font(.headline)
-                .padding()
-            
-            NavigationLink(destination: BrowseView()) {
-                   Text("Browse by Map")
-                       .frame(maxWidth: .infinity)
-                       .padding()
-                       .background(Color.blue)
-                       .foregroundColor(.white)
-                       .cornerRadius(10)
-                       .padding(.horizontal)
-               }
-            
-            
-            NavigationLink(destination: SearchFilter()) {
+        NavigationStack {
+            VStack(spacing: 20) {
+                Text("This is the Home View")
+                    .font(.title)
+                    .bold()
+
+                NavigationLink(destination: BrowseView()) {
+                    Text("Browse by Map")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                }
+
+                NavigationLink(destination: SearchFilterStepOne()) {
                     Text("Search")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.black)
                         .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
+                        .cornerRadius(12)
                 }
 
-            
-            NavigationLink(destination: SearchHistoryView()) {
-                   Text("Check Inquiries")
-                       .frame(maxWidth: .infinity)
-                       .padding()
-                       .background(Color.blue)
-                       .foregroundColor(.white)
-                       .cornerRadius(10)
-                       .padding(.horizontal)
-               }
-            
-            
-          
+                NavigationLink(destination: SearchHistoryView()) {
+                    Text("Search History")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                }
+
+                Button(action: {
+                    isLoggedIn = false
+                }) {
+                    Text("Log Out")
+                        .foregroundColor(.red)
+                }
+            }
+            .padding()
         }
     }
 }

@@ -65,7 +65,7 @@ struct BrowseView: View {
                     Text("Show Current Properties")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.black)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .padding(.horizontal)
