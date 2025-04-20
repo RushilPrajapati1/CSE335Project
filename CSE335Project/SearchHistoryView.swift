@@ -20,7 +20,7 @@ struct SearchHistoryView: View {
         ]
     var body: some View {
         VStack {
-            Text("Search History")
+            Text("Inquiries sent")
                 .font(.headline)
             
             if searchView.history.isEmpty {
@@ -29,12 +29,14 @@ struct SearchHistoryView: View {
                                 .padding()
                         } else {
                             List(searchView.history) { property in
-                                VStack(alignment: .leading) {
-                                    Text(property.title).bold()
-                                    Text("Price: $\(String(format: "%.2f", property.price))")
-                                    Text("Location: \(property.location)")
+                                NavigationLink(destination: PropertyView(property: property)) {
+                                    VStack(alignment: .leading) {
+                                        Text(property.title).bold()
+                                        Text("Price: $\(String(format: "%.2f", property.price))")
+                                        Text("Location: \(property.location)")
+                                    }
+                                    .padding(.vertical, 4)
                                 }
-                                .padding(.vertical, 4)
                             }
             }
         }

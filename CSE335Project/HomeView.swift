@@ -46,7 +46,7 @@ struct HomeView: View {
 
             
             NavigationLink(destination: SearchHistoryView()) {
-                   Text("Search History")
+                   Text("Check Inquiries")
                        .frame(maxWidth: .infinity)
                        .padding()
                        .background(Color.blue)

@@ -71,7 +71,7 @@ struct AddPropertyView: View {
         )
 
         properties.append(newProperty)
-        searchView.addToHistory(newProperty)
+       // searchView.addToHistory(newProperty)
 
         dismiss()
     }

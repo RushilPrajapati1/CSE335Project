@@ -19,6 +19,9 @@ class SearchModel: ObservableObject{
        }
     
     func addToHistory(_ property: Property) {
-            history.append(property)
+        
+        if !history.contains(where: { $0.id == property.id }) {
+                    history.append(property)
+                }
         }
 }

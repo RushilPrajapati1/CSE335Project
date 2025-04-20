@@ -11,6 +11,8 @@ import CoreLocation
 
 struct InquiryView: View {
     var property: Property
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var searchView: SearchModel
 
     @State private var name = ""
     @State private var email = ""
@@ -40,6 +42,9 @@ struct InquiryView: View {
             Spacer()
 
             Button(action: {
+                searchView.addToHistory(property)
+                dismiss()
+
             }) {
                 Text("Send Inquiry")
                     .frame(maxWidth: .infinity)
