@@ -14,6 +14,7 @@ struct SearchFilterStepTwo: View {
 
     @State private var beds: Int = 1
     @State private var roomType: String = "Private"
+    @State private var showMap = false
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 33.4255, longitude: -111.94),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -35,7 +36,20 @@ struct SearchFilterStepTwo: View {
             .pickerStyle(SegmentedPickerStyle())
 
             Button("Search") {
-                performSearch()
+                let geocoder = CLGeocoder()
+                let locale = Locale(identifier: "en_US")
+
+                geocoder.geocodeAddressString(city, in: nil, preferredLocale: locale) { placemarks, error in
+                    if let coordinate = placemarks?.first?.location?.coordinate {
+                        region = MKCoordinateRegion(
+                            center: coordinate,
+                            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                        )
+                        showMap = true
+                    } else {
+                        print("Could not find location for \(city): \(error?.localizedDescription ?? "Unknown error")")
+                    }
+                }
             }
             .padding()
             .frame(maxWidth: .infinity)
