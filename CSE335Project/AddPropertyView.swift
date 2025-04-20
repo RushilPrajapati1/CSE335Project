@@ -12,6 +12,8 @@ import SwiftUI
 struct AddPropertyView: View {
     @Binding var properties: [Property]
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var searchView: SearchModel
+
 
     @State private var title = ""
     @State private var price = ""
@@ -69,6 +71,8 @@ struct AddPropertyView: View {
         )
 
         properties.append(newProperty)
+        searchView.addToHistory(newProperty)
+
         dismiss()
     }
 }
