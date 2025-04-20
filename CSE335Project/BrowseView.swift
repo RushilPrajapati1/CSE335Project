@@ -25,31 +25,21 @@ struct BrowseView: View {
         NavigationStack {
             VStack {
                 Spacer().frame(height: 10)
-                Text("Current Listings Nearby")
-                    .font(.title)
-                    .bold()
+                Text("Current Listings Nearby").font(.title).bold()
 
                 ZStack(alignment: .bottomTrailing) {
-                    Map(
-                        initialPosition: .region(mapView.region),
-                        interactionModes: [.all],
-                        content: {
-                            ForEach(mapView.properties) { property in
-                                Annotation("\(property.title)", coordinate: property.coordinate) {
-                                    Button {
-                                        selectedProperty = property
-                                        navigate = true
-                                    } label: {
-                                        Image(systemName: "mappin.circle.fill")
-                                            .font(.title)
-                                            .foregroundColor(.blue)
-                                    }
-                                }
+                    Map(coordinateRegion: $mapView.region, annotationItems: mapView.properties) { item in
+                        MapAnnotation(coordinate: item.coordinate) {
+                            Button {
+                                selectedProperty = item
+                                navigate = true
+                            } label: {
+                                Image(systemName: "mappin.circle.fill")
+                                    .font(.title)
+                                    .foregroundColor(.blue)
                             }
                         }
-                    )
-                    .mapControls { MapUserLocationButton() }
-                    .frame(height: 600)
+                    }
                     .cornerRadius(12)
 
                     VStack(spacing: 8) {
@@ -67,14 +57,15 @@ struct BrowseView: View {
                         }
                     }.padding()
                 }
-                .padding(.horizontal)
+                .frame(height: 600)
+                .padding()
 
                 NavigationLink(destination:
                     PropertyListView(properties: mapView.properties)) {
                     Text("Show Current Properties")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.purple)
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .padding(.horizontal)

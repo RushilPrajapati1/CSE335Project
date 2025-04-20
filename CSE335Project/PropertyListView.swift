@@ -38,7 +38,6 @@ struct PropertyListView: View {
             }
 
             Button(action: {
-                // Handle "add more" in future
             }) {
                 Text("Add more properties")
                     .padding()
@@ -50,5 +49,11 @@ struct PropertyListView: View {
             .padding()
         }
         .navigationTitle("Properties Nearby")
+    }
+}
+
+#Preview {
+    NavigationStack {
+        PropertyListView(properties: Property.sampleData)
     }
 }

@@ -90,3 +90,8 @@ struct LoginView: View {
         }
     }
 }
+
+#Preview {
+    LoginView()
+        .modelContainer(for: User.self)
+}

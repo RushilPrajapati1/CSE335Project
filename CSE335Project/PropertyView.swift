@@ -44,3 +44,9 @@ struct PropertyView: View {
         .navigationTitle("Property Details")
     }
 }
+
+#Preview {
+    NavigationStack {
+        PropertyView(property: Property.sampleData.first!)
+    }
+}

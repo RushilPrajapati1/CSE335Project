@@ -65,3 +65,7 @@ struct AddPropertyView: View {
         dismiss()
     }
 }
+
+#Preview {
+    AddPropertyView(properties: .constant([]))
+}

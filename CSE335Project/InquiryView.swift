@@ -25,10 +25,7 @@ struct InquiryView: View {
             Text("Description")
                 .foregroundColor(.gray)
             Text("Inquiring about: \(property.title)")
-                .padding()
-                .background(Color.pink.opacity(0.1))
-                .cornerRadius(8)
-
+            
             TextField("Name", text: $name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
 
@@ -57,3 +54,8 @@ struct InquiryView: View {
     }
 }
 
+#Preview {
+    NavigationStack {
+        InquiryView(property: Property.sampleData.first!)
+    }
+}

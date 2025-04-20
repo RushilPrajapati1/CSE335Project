@@ -70,3 +70,4 @@ class MapModel: ObservableObject {
         region.span.longitudeDelta *= 2
     }
 }
+

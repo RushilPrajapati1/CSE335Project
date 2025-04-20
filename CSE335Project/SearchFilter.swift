@@ -13,7 +13,7 @@ struct SearchFilter: View {
     
     @State private var city: String = ""
     @State private var zip: String = ""
-    @State private var propertyType: String = "Buy" // Buy or Rent
+    @State private var propertyType: String = "Buy"
     @State private var distance: Double = 50
     @State private var price: Double = 500000
 
