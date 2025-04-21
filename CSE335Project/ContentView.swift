@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoggedIn = false
     @StateObject private var mapView = MapModel()
     @StateObject private var searchView = SearchModel()
+    @State private var isLoggedIn = false
 
     var body: some View {
         if isLoggedIn {
@@ -28,4 +28,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
 

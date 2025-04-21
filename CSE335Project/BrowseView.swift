@@ -5,6 +5,7 @@
 //  Created by Rushil Prajapati on 3/27/25.
 //
 
+
 import SwiftUI
 import MapKit
 
@@ -13,19 +14,13 @@ struct BrowseView: View {
     @State private var selectedProperty: Property? = nil
     @State private var navigate = false
 
-    var destinationView: some View {
-        if let property = selectedProperty {
-            return AnyView(PropertyView(property: property))
-        } else {
-            return AnyView(Text("No property selected."))
-        }
-    }
-
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer().frame(height: 10)
-                Text("Current Listings Nearby").font(.title).bold()
+                Text("Current Listings Nearby")
+                    .font(.title)
+                    .bold()
 
                 ZStack(alignment: .bottomTrailing) {
                     Map(coordinateRegion: $mapView.region, annotationItems: mapView.properties) { item in
@@ -43,25 +38,33 @@ struct BrowseView: View {
                     .cornerRadius(12)
 
                     VStack(spacing: 8) {
-                        Button(action: { mapView.zoomIn() }) {
+                        Button(action: {
+                            mapView.zoomIn()
+                        }) {
                             Image(systemName: "plus.magnifyingglass")
                                 .padding(10)
                                 .background(Color.white.opacity(0.8))
                                 .clipShape(Circle())
                         }
-                        Button(action: { mapView.zoomOut() }) {
+                        Button(action: {
+                            mapView.zoomOut()
+                        }) {
                             Image(systemName: "minus.magnifyingglass")
                                 .padding(10)
                                 .background(Color.white.opacity(0.8))
                                 .clipShape(Circle())
                         }
-                    }.padding()
+                    }
+                    .padding()
                 }
                 .frame(height: 600)
                 .padding()
 
-                NavigationLink(destination:
-                    PropertyListView(properties: $mapView.properties)) {
+                Text("Properties loaded: \(mapView.properties.count)")
+                    .font(.subheadline)
+                    .padding(.bottom)
+
+                NavigationLink(destination: PropertyListView(properties: $mapView.properties)) {
                     Text("Show Current Properties")
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -71,17 +74,23 @@ struct BrowseView: View {
                         .padding(.horizontal)
                 }
 
-                NavigationLink(destination: destinationView, isActive: $navigate) {
+                NavigationLink(
+                    destination: selectedProperty.map { AnyView(PropertyView(property: $0)) } ?? AnyView(Text("No property selected.")),
+                    isActive: $navigate
+                ) {
                     EmptyView()
+                }
+            }
+            .onAppear {
+                if mapView.properties.isEmpty {
+                    mapView.loadProperties(for: "Tempe") // Default or pass from search
                 }
             }
         }
     }
 }
 
-struct BrowseView_Previews: PreviewProvider {
-    static var previews: some View {
-        BrowseView()
-            .environmentObject(MapModel())
-    }
+#Preview {
+    BrowseView()
+        .environmentObject(MapModel())
 }

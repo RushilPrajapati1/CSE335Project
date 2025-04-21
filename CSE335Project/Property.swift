@@ -6,34 +6,34 @@
 //
 
 import Foundation
-import SwiftUI
 import MapKit
 
-struct Property: Identifiable{
-    var id: UUID = UUID()
-    var title: String
-    var price: Double
-    var location: String
-    var coordinate: CLLocationCoordinate2D
-}
 
-extension Property {
+struct Property: Identifiable {
+    let id = UUID()
+    let title: String
+    let price: Double
+    let location: String
+    let coordinate: CLLocationCoordinate2D
+
     static let sampleData: [Property] = [
-        Property(title: "Cozy Apartment", price: 1200, location: "Tempe",
-                       coordinate: CLLocationCoordinate2D(latitude: 33.4240, longitude: -111.9280)),
-              
-              Property(title: "Luxury Condo", price: 3500, location: "Tempe",
-                       coordinate: CLLocationCoordinate2D(latitude: 33.4275, longitude: -111.9405)),
-              
-              Property(title: "Family House", price: 2800, location: "Tempe",
-                       coordinate: CLLocationCoordinate2D(latitude: 33.4220, longitude: -111.9430)),
-              
-              Property(title: "Downtown Studio", price: 1500, location: "Tempe",
-                       coordinate: CLLocationCoordinate2D(latitude: 33.4255, longitude: -111.9390)),
-              
-              Property(title: "Spacious Duplex", price: 2100, location: "Tempe",
-                       coordinate: CLLocationCoordinate2D(latitude: 33.4215, longitude: -111.9350))
-          
+        Property(
+            title: "Downtown Tempe Apartment",
+            price: 1600,
+            location: "101 S Mill Ave, Tempe, AZ",
+            coordinate: CLLocationCoordinate2D(latitude: 33.4260, longitude: -111.9398)
+        ),
+        Property(
+            title: "University Townhouse",
+            price: 1800,
+            location: "525 E Apache Blvd, Tempe, AZ",
+            coordinate: CLLocationCoordinate2D(latitude: 33.4172, longitude: -111.9281)
+        ),
+        Property(
+            title: "Luxury Scottsdale Rental",
+            price: 2300,
+            location: "7401 E Camelback Rd, Scottsdale, AZ",
+            coordinate: CLLocationCoordinate2D(latitude: 33.5013, longitude: -111.9251)
+        )
     ]
 }
- 

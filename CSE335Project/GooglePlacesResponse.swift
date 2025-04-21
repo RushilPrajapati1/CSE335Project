@@ -1,13 +1,17 @@
 import Foundation
+import CoreLocation
 
 struct GooglePlacesResponse: Codable {
-    let results: [Place]
+    let results: [GooglePlace]
 }
 
-struct Place: Codable {
+struct GooglePlace: Codable, Identifiable {
+    var id: String { place_id }
+
     let name: String
-    let vicinity: String
     let geometry: Geometry
+    let place_id: String
+    let vicinity: String?
 }
 
 struct Geometry: Codable {
