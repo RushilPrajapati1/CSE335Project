@@ -14,49 +14,50 @@ struct AddPropertyView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var searchView: SearchModel
 
-
     @State private var title = ""
     @State private var price = ""
     @State private var location = ""
     @State private var address = ""
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Add Property")
-                .font(.largeTitle).bold()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                HStack(spacing: 10) {
+                    Image(systemName: "plus.rectangle.on.folder.fill")
+                        .font(.title2)
+                        .foregroundColor(.black)
+                    Text("Add Property")
+                        .font(.largeTitle).bold()
+                }
 
-            Text("PROPERTY DETAILS")
-                .font(.caption)
-                .foregroundColor(.secondary)
+                Text("Property Details")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
 
-            VStack() {
-                TextField("Title", text: $title)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Group {
+                    LabeledField(icon: "tag.fill", placeholder: "Title", text: $title)
+                    LabeledField(icon: "dollarsign.circle.fill", placeholder: "Price", text: $price, keyboard: .decimalPad)
+                    LabeledField(icon: "location.fill", placeholder: "Location", text: $location)
+                    LabeledField(icon: "house.fill", placeholder: "Street Address", text: $address)
+                }
 
-                TextField("Price", text: $price)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Location", text: $location)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                TextField("Street Address", text: $address)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            
-            Button(action: addProperty) {
-                Text("Add Property")
+                Button(action: addProperty) {
+                    HStack {
+                        Image(systemName: "plus.circle")
+                        Text("Add Property")
+                            .bold()
+                    }
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.black)
                     .foregroundColor(.white)
                     .cornerRadius(10)
-            }
-            .padding(.top)
+                }
 
-            Spacer()
+                Spacer()
+            }
+            .padding()
         }
-        .padding()
         .background(Color(.systemGroupedBackground))
     }
 
@@ -72,6 +73,25 @@ struct AddPropertyView: View {
 
         properties.append(newProperty)
         dismiss()
+    }
+}
+
+struct LabeledField: View {
+    var icon: String
+    var placeholder: String
+    @Binding var text: String
+    var keyboard: UIKeyboardType = .default
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: icon)
+                .foregroundColor(.gray)
+            TextField(placeholder, text: $text)
+                .keyboardType(keyboard)
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(10)
     }
 }
 

@@ -12,55 +12,72 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                Text("This is the Home View")
-                    .font(.title)
-                    .bold()
+            VStack(spacing: 24) {
+                VStack(spacing: 8) {
+                    Image(systemName: "house.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.black)
 
-                NavigationLink(destination: BrowseView()) {
-                    Text("Browse by Map")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+                    Text("")
+                        .font(.title)
+                        .bold()
+                }
+                .padding(.top, 40)
+
+                VStack(spacing: 16) {
+                    NavigationLink(destination: BrowseView()) {
+                        Label("Browse by Map", systemImage: "map.fill")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+
+                    NavigationLink(destination: SearchFilterStepOne()) {
+                        Label("Search", systemImage: "magnifyingglass")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+
+                    NavigationLink(destination: SearchHistoryView()) {
+                        Label("Viewed History", systemImage: "clock")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+
+                    NavigationLink(destination: InquiryHistoryView()) {
+                        Label("Inquiry History", systemImage: "tray.full")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
                 }
 
-                NavigationLink(destination: SearchFilterStepOne()) {
-                    Text("Search")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                }
-
-                NavigationLink(destination: SearchHistoryView()) {
-                    Text("Viewed History")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                }
-
-                NavigationLink(destination: InquiryHistoryView()) {
-                    Text("Inquiry History")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                }
+                Spacer()
 
                 Button(action: {
                     isLoggedIn = false
                 }) {
-                    Text("Log Out")
-                        .foregroundColor(.red)
+                    HStack {
+                        Image(systemName: "arrowshape.turn.up.left")
+                        Text("Log Out")
+                    }
+                    .foregroundColor(.red)
                 }
             }
             .padding()
+            .background(Color(.systemGroupedBackground))
         }
     }
 }
@@ -70,3 +87,4 @@ struct HomeView: View {
         .environmentObject(MapModel())
         .environmentObject(SearchModel())
 }
+

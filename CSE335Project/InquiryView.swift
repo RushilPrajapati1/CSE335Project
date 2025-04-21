@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import CoreLocation
 
 struct InquiryView: View {
     var property: Property
@@ -19,48 +18,65 @@ struct InquiryView: View {
     @State private var message = ""
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Property Inquiry")
-                .font(.title2)
-                .bold()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                HStack(spacing: 10) {
+                    Image(systemName: "envelope.fill")
+                        .font(.title2)
+                        .foregroundColor(.black)
+                    Text("Property Inquiry")
+                        .font(.title2)
+                        .bold()
+                }
 
-            Text("Description")
-                .foregroundColor(.gray)
-            Text("Inquiring about: \(property.title)")
-            
-            TextField("Name", text: $name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Inquiring about:")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    Text(property.title)
+                        .bold()
+                }
 
-            TextField("Email", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                Group {
+                    TextField("Name", text: $name)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Email", text: $email)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            Text("Add Message")
-            TextEditor(text: $message)
-                .frame(height: 100)
-                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
+                    Text("Add Message")
+                    TextEditor(text: $message)
+                        .frame(height: 100)
+                        .padding(8)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                }
 
-            Spacer()
-
-            Button(action: {
-                searchView.addToHistory(property)
-                dismiss()
-
-            }) {
-                Text("Send Inquiry")
+                Button(action: {
+                    searchView.addToHistory(property)
+                    dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "paperplane.fill")
+                        Text("Send Inquiry")
+                            .bold()
+                    }
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.black)
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                }
             }
+            .padding()
         }
-        .padding()
-        .navigationTitle("Inquire Screen")
+        .background(Color(.systemGroupedBackground))
+        .navigationTitle("Inquire")
     }
 }
 
 #Preview {
     NavigationStack {
         InquiryView(property: Property.sampleData.first!)
+            .environmentObject(SearchModel())
     }
 }

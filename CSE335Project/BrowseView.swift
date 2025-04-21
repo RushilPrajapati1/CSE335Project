@@ -5,7 +5,6 @@
 //  Created by Rushil Prajapati on 3/27/25.
 //
 
-
 import SwiftUI
 import MapKit
 
@@ -16,11 +15,18 @@ struct BrowseView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
-                Spacer().frame(height: 10)
-                Text("Current Listings Nearby")
-                    .font(.title)
-                    .bold()
+            VStack(spacing: 16) {
+                HStack(spacing: 12) {
+                    Image(systemName: "map.circle.fill")
+                        .resizable()
+                        .frame(width: 36, height: 36)
+                        .foregroundColor(.black)
+
+                    Text("Current Listings Nearby")
+                        .font(.title2)
+                        .bold()
+                }
+                .padding(.top)
 
                 ZStack(alignment: .bottomTrailing) {
                     Map(coordinateRegion: $mapView.region, annotationItems: mapView.properties) { item in
@@ -30,7 +36,7 @@ struct BrowseView: View {
                                 navigate = true
                             } label: {
                                 Image(systemName: "mappin.circle.fill")
-                                    .font(.title)
+                                    .font(.title2)
                                     .foregroundColor(.blue)
                             }
                         }
@@ -38,44 +44,46 @@ struct BrowseView: View {
                     .cornerRadius(12)
 
                     VStack(spacing: 8) {
-                        Button(action: {
-                            mapView.zoomIn()
-                        }) {
+                        Button(action: mapView.zoomIn) {
                             Image(systemName: "plus.magnifyingglass")
                                 .padding(10)
-                                .background(Color.white.opacity(0.8))
+                                .background(Color.white.opacity(0.9))
                                 .clipShape(Circle())
+                                .shadow(radius: 2)
                         }
-                        Button(action: {
-                            mapView.zoomOut()
-                        }) {
+
+                        Button(action: mapView.zoomOut) {
                             Image(systemName: "minus.magnifyingglass")
                                 .padding(10)
-                                .background(Color.white.opacity(0.8))
+                                .background(Color.white.opacity(0.9))
                                 .clipShape(Circle())
+                                .shadow(radius: 2)
                         }
                     }
                     .padding()
                 }
                 .frame(height: 600)
-                .padding()
+                .padding(.horizontal)
 
                 Text("Properties loaded: \(mapView.properties.count)")
                     .font(.subheadline)
-                    .padding(.bottom)
+                    .foregroundColor(.gray)
 
                 NavigationLink(destination: PropertyListView(properties: $mapView.properties)) {
-                    Text("Show Current Properties")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
+                    HStack {
+                        Image(systemName: "list.bullet.rectangle.portrait")
+                        Text("Show Current Properties")
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.black)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
                 }
 
                 NavigationLink(
-                    destination: selectedProperty.map { AnyView(PropertyView(property: $0)) } ?? AnyView(Text("No property selected.")),
+                    destination: selectedProperty.map { AnyView(PropertyView(property: $0)) } ?? AnyView(EmptyView()),
                     isActive: $navigate
                 ) {
                     EmptyView()
@@ -83,7 +91,7 @@ struct BrowseView: View {
             }
             .onAppear {
                 if mapView.properties.isEmpty {
-                    mapView.loadProperties(for: "Tempe") // Default or pass from search
+                    mapView.loadProperties(for: "Tempe")
                 }
             }
         }

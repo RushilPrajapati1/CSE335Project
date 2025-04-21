@@ -4,6 +4,7 @@
 //
 //  Created by Rushil Prajapati on 3/26/25.
 //
+
 import SwiftUI
 import MapKit
 
@@ -13,12 +14,25 @@ struct PropertyView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text(property.title)
-                    .font(.title)
-                    .bold()
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(property.title)
+                        .font(.title)
+                        .bold()
 
-                Text("Price: $\(String(format: "%.2f", property.price))")
-                Text("Location: \(property.location)")
+                    HStack(spacing: 8) {
+                        Image(systemName: "dollarsign.circle")
+                        Text(String(format: "$%.2f / month", property.price))
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+
+                    HStack(spacing: 8) {
+                        Image(systemName: "mappin.and.ellipse")
+                        Text(property.location)
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                }
 
                 Map(initialPosition: .region(
                     MKCoordinateRegion(center: property.coordinate,
@@ -31,17 +45,22 @@ struct PropertyView: View {
                 .cornerRadius(12)
 
                 NavigationLink(destination: InquiryView(property: property)) {
-                    Text("Inquire")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    HStack {
+                        Image(systemName: "envelope.fill")
+                        Text("Inquire")
+                            .bold()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.black)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
             }
             .padding()
         }
         .navigationTitle("Property Details")
+        .background(Color(.systemGroupedBackground))
     }
 }
 

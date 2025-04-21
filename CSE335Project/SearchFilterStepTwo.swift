@@ -4,6 +4,7 @@
 //
 //  Created by Shubham Khalkho on 4/20/25.
 //
+
 import SwiftUI
 import MapKit
 
@@ -27,10 +28,16 @@ struct SearchFilterStepTwo: View {
     )
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("More Filters")
-                .font(.title2)
-                .bold()
+        VStack(spacing: 20) {
+            HStack(spacing: 10) {
+                Image(systemName: "slider.horizontal.3")
+                    .font(.title2)
+                    .foregroundColor(.black)
+                Text("Additional Filters")
+                    .font(.title2)
+                    .bold()
+            }
+            .padding(.top)
 
             Stepper("Beds: \(beds)", value: $beds, in: 1...5)
 
@@ -70,14 +77,11 @@ struct SearchFilterStepTwo: View {
                             showMap = true
                         }
 
-                        // Load and filter by price
                         mapView.loadProperties(for: city)
 
-                        // Wait a short delay to apply price filter after properties load
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             mapView.properties = mapView.properties.filter { $0.price <= price }
                         }
-
                     } else {
                         DispatchQueue.main.async {
                             errorMessage = "City doesn't exist."
@@ -120,9 +124,20 @@ struct SearchFilterStepTwo: View {
                         searchView.addToViewed(property)
                     }
                 }
+            } else {
+                Spacer()
+                Image(systemName: "map")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.gray)
+                Text("Search to see properties on the map")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
             }
         }
         .padding()
+        .background(Color(.systemGroupedBackground))
     }
 }
 
