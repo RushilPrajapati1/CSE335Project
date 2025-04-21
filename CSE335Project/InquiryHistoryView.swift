@@ -21,7 +21,7 @@ struct InquiryHistoryView: View {
                     .padding()
             } else {
                 List(searchView.history) { property in
-                    NavigationLink(destination: PropertyView(property: property)) {
+                    NavigationLink(destination: InquiryDetailView(property: property)) {
                         VStack(alignment: .leading) {
                             Text(property.title).bold()
                             Text(String(format: "Price: $%.2f", property.price))
